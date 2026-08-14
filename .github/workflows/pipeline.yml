@@ -1,0 +1,47 @@
+name: Enterprise Golden CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - 'development'
+      - 'feature/**'
+      - 'main'
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+*'
+  pull_request:
+    branches:
+      - 'development'
+      - 'main'
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Release Tag to deploy (e.g., v1.0.0)'
+        required: false
+      deploy_type:
+        description: 'Deploy Type: auto, all, container, opentofu, databricks_dab, or comma-separated'
+        required: false
+        default: 'auto'
+      target_env:
+        description: 'Override Target Environment (dev, test, prod)'
+        required: false
+        default: 'auto'
+
+permissions:
+  id-token: write
+  contents: read
+  security-events: write
+  packages: write
+  actions: read
+
+jobs:
+  golden-pipeline:
+    uses: <ENTERPRISE_ORG>/golden_pipelines/.github/workflows/enterprise-golden-pipeline.yml@main
+    with:
+      target_env: ${{ inputs.target_env != '' && inputs.target_env != 'auto' && inputs.target_env || (github.event_name == 'workflow_dispatch' && 'prod') || (startsWith(github.ref, 'refs/tags/v') && 'release') || (github.ref == 'refs/heads/main' && 'test') || 'dev' }}
+      deploy_type: ${{ inputs.deploy_type || 'auto' }}
+      release_tag: ${{ inputs.release_tag || (startsWith(github.ref, 'refs/tags/v') && github.ref_name || '') }}
+      infra_dir: 'infra'
+      src_dir: 'src'
+      databricks_dir: 'databricks'
+      dockerfile_path: 'Dockerfile'
+    secrets: inherit
