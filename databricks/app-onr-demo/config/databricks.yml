@@ -1,0 +1,31 @@
+# Snapshot of the repo-root bundle for the Full bundle tab.
+# Job, volume, app, and pipeline definitions live in resources/*.yml
+# at the repository root (not inside this app source).
+#
+#   databricks bundle deploy -t dev
+
+bundle:
+  name: onr_demo
+
+include:
+  - ./resources/*.yml
+
+targets:
+  dev:
+    mode: production
+    default: true
+    workspace:
+      host: https://dbc-1632e213-1cc0.cloud.databricks.com
+      root_path: /Workspace/.bundle/${bundle.name}/${bundle.target}
+
+  test:
+    mode: production
+    workspace:
+      host: TODO
+      root_path: /Workspace/Shared/.bundle/${bundle.name}/test
+
+  prod:
+    mode: production
+    workspace:
+      host: TODO
+      root_path: /Workspace/Shared/.bundle/${bundle.name}/prod

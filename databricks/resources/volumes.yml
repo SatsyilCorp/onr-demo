@@ -1,0 +1,12 @@
+resources:
+  volumes:
+    landing_volume:
+      name: landing
+      catalog_name: ${var.catalog}
+      schema_name: bronze
+      volume_type: MANAGED
+    checkpoints_volume:
+      name: checkpoints
+      catalog_name: ${var.catalog}
+      schema_name: bronze
+      volume_type: MANAGED

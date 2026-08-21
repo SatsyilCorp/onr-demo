@@ -1,0 +1,17 @@
+resources:
+  pipelines:
+    # Element 3 — Lakeflow Declarative Pipeline. Triggered, not continuous.
+    # Writes sibling table bronze.grants_stream so it does not collide with
+    # the batch bronze.grants used by the app.
+    onr_grants_stream:
+      name: onr-demo-grants-stream
+      catalog: ${var.catalog}
+      target: bronze
+      serverless: true
+      continuous: false
+      channel: CURRENT
+      libraries:
+        - file:
+            path: ./pipelines/onr_grants_sdp.py
+      configuration:
+        catalog: ${var.catalog}

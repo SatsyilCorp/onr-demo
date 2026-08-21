@@ -1,49 +1,61 @@
+# Databricks Asset Bundle — onr_demo
+#
+# Does NOT create the SQL warehouse or the clusters. Use the existing
+# workspace objects:
+#   SQL warehouse:  onr demo warehouse          (pre-existing, not in this bundle)
+#   All-purpose:    onr demo cluster            (01 / 02 / 03, file-arrival)
+#   Score:          onr demo ml                 (04c)
+#
+# Only `dev` is a real workspace today. test / prod hosts are TODO so a
+# pipeline cannot deploy them by accident.
+#
+#   databricks bundle deploy -t dev
+#
+# Bootstrap (00_bootstrap.py) must run before the first deploy — volumes
+# need schema bronze.
+
 bundle:
-  name: enterprise_analytics_dab
+  name: onr_demo
 
 include:
   - ./resources/*.yml
 
+variables:
+  catalog:
+    description: Unity Catalog name
+    default: onr_demo
+  job_cluster_id:
+    description: Existing all-purpose cluster for 01 / 02 / 03 (onr demo cluster)
+  ml_cluster_id:
+    description: Existing ML cluster for 04c Score (onr demo ml)
+
 targets:
   dev:
-    mode: development
+    mode: production
     default: true
     workspace:
-      host: https://adb-dev-gov.cloud.databricks.com
-      root_path: /Users/service_principal/.bundle/${bundle.name}/dev
+      host: https://dbc-1632e213-1cc0.cloud.databricks.com
+      root_path: /Workspace/.bundle/${bundle.name}/${bundle.target}
+    variables:
+      job_cluster_id: "0813-174506-k095xb80"
+      ml_cluster_id: "0818-024751-8wctccnl"
 
   test:
     mode: production
     workspace:
-      host: https://adb-test-gov.cloud.databricks.com
-      root_path: /Shared/.bundle/${bundle.name}/test
+      # Replace TODO with the test workspace URL before any deploy.
+      host: TODO
+      root_path: /Workspace/Shared/.bundle/${bundle.name}/test
+    variables:
+      job_cluster_id: TODO
+      ml_cluster_id: TODO
 
   prod:
     mode: production
     workspace:
-      host: https://adb-prod-gov.cloud.databricks.com
-      root_path: /Shared/.bundle/${bundle.name}/prod
-
-resources:
-  jobs:
-    budget_execution_pipeline:
-      name: "[${bundle.target}] Budget Execution & Forecasting Pipeline"
-      tasks:
-        - task_key: streaming_ingestion_task
-          job_cluster_key: analytics_gpu_cluster
-          spark_python_task:
-            python_file: ./src/analytics/budget_forecasting.py
-            parameters:
-              - "--env"
-              - "${bundle.target}"
-
-      job_clusters:
-        - job_cluster_key: analytics_gpu_cluster
-          new_cluster:
-            spark_version: 14.3.x-gpu-ml-scala2.12
-            node_type_id: g5.xlarge
-            autoscale:
-              min_workers: 1
-              max_workers: 8
-            spark_conf:
-              spark.databricks.delta.preview.enabled: "true"
+      # Replace TODO with the prod workspace URL before any deploy.
+      host: TODO
+      root_path: /Workspace/Shared/.bundle/${bundle.name}/prod
+    variables:
+      job_cluster_id: TODO
+      ml_cluster_id: TODO
