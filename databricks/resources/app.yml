@@ -3,4 +3,4 @@ resources:
     onr_demo_app:
       name: onr-demo-poc
       description: "ONR ITSS POC — Elements 3–7"
-      source_code_path: ./app-onr-demo
+      source_code_path: ../app-onr-demo

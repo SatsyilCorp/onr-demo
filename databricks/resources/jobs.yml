@@ -21,7 +21,7 @@ resources:
         - task_key: bronze_ingest
           existing_cluster_id: ${var.job_cluster_id}
           notebook_task:
-            notebook_path: ./notebooks/01_bronze_ingestion.py
+            notebook_path: ../notebooks/01_bronze_ingestion.py
             base_parameters:
               catalog: ${var.catalog}
         - task_key: silver_quality
@@ -29,7 +29,7 @@ resources:
             - task_key: bronze_ingest
           existing_cluster_id: ${var.job_cluster_id}
           notebook_task:
-            notebook_path: ./notebooks/02_silver_quality.py
+            notebook_path: ../notebooks/02_silver_quality.py
             base_parameters:
               catalog: ${var.catalog}
         - task_key: gold_aggregation
@@ -37,7 +37,7 @@ resources:
             - task_key: silver_quality
           existing_cluster_id: ${var.job_cluster_id}
           notebook_task:
-            notebook_path: ./notebooks/03_gold_aggregation.py
+            notebook_path: ../notebooks/03_gold_aggregation.py
             base_parameters:
               catalog: ${var.catalog}
 
@@ -56,6 +56,6 @@ resources:
         - task_key: score
           existing_cluster_id: ${var.ml_cluster_id}
           notebook_task:
-            notebook_path: ./notebooks/04c_score_registered_models.py
+            notebook_path: ../notebooks/04c_score_registered_models.py
             base_parameters:
               catalog: ${var.catalog}

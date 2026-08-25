@@ -12,6 +12,6 @@ resources:
       channel: CURRENT
       libraries:
         - file:
-            path: ./pipelines/onr_grants_sdp.py
+            path: ../pipelines/onr_grants_sdp.py
       configuration:
         catalog: ${var.catalog}
