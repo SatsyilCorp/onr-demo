@@ -1,0 +1,59 @@
+# Databricks Asset Bundle — onr_demo
+#
+# Does NOT create the SQL warehouse or the clusters. Use the existing
+# workspace objects:
+#   SQL warehouse:  onr demo warehouse          (pre-existing, not in this bundle)
+#   All-purpose:    onr demo cluster            (01 / 02 / 03, file-arrival)
+#   Score:          onr demo ml                 (04c)
+#
+# Only `dev` is a real workspace today. test / prod hosts are TODO so a
+# pipeline cannot deploy them by accident.
+#
+#   databricks bundle deploy -t dev
+#
+# Bootstrap (00_bootstrap.py) must run before the first deploy — volumes
+# need schema bronze.
+
+bundle:
+  name: onr_demo
+
+include:
+  - ./resources/*.yml
+
+variables:
+  catalog:
+    description: Unity Catalog name
+    default: onr_demo
+  job_cluster_id:
+    description: Existing all-purpose cluster for 01 / 02 / 03 (onr demo cluster)
+  ml_cluster_id:
+    description: Existing ML cluster for 04c Score (onr demo ml)
+
+targets:
+  dev:
+    mode: production
+    default: true
+    workspace:
+      host: https://dbc-1632e213-1cc0.cloud.databricks.com
+      root_path: /Workspace/.bundle/${bundle.name}/${bundle.target}
+    variables:
+      job_cluster_id: "0813-174506-k095xb80"
+      ml_cluster_id: "0818-024751-8wctccnl"
+
+  test:
+    mode: production
+    workspace:
+      host: https://dbc-1632e213-1cc0.cloud.databricks.com
+      root_path: /Workspace/.bundle/${bundle.name}/test
+    variables:
+      job_cluster_id: "0813-174506-k095xb80"
+      ml_cluster_id: "0818-024751-8wctccnl"
+
+  prod:
+    mode: production
+    workspace:
+      host: https://dbc-1632e213-1cc0.cloud.databricks.com
+      root_path: /Workspace/.bundle/${bundle.name}/prod
+    variables:
+      job_cluster_id: "0813-174506-k095xb80"
+      ml_cluster_id: "0818-024751-8wctccnl"

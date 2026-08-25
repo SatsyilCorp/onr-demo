@@ -1,0 +1,26 @@
+# Databricks Asset Bundle — onr_demo / target dev
+# Does NOT create the SQL warehouse or the clusters.
+#   databricks bundle deploy -t dev
+
+bundle:
+  name: onr_demo
+
+include:
+  - ./resources/*.yml
+
+targets:
+  dev:
+    mode: production
+    default: true
+    workspace:
+      host: https://dbc-1632e213-1cc0.cloud.databricks.com
+
+  test:
+    mode: production
+    workspace:
+      host: TODO
+
+  prod:
+    mode: production
+    workspace:
+      host: TODO
