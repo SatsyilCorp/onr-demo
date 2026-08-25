@@ -119,50 +119,50 @@ moved {
 
 moved {
   from = aws_s3_bucket.metastore
-  to   = module.databricks_workspace.aws_s3_bucket.metastore
+  to   = module.databricks_workspace.aws_s3_bucket.metastore[0]
 }
 
 moved {
   from = aws_s3_bucket_versioning.metastore
-  to   = module.databricks_workspace.aws_s3_bucket_versioning.metastore
+  to   = module.databricks_workspace.aws_s3_bucket_versioning.metastore[0]
 }
 
 moved {
   from = aws_s3_bucket_server_side_encryption_configuration.metastore
-  to   = module.databricks_workspace.aws_s3_bucket_server_side_encryption_configuration.metastore
+  to   = module.databricks_workspace.aws_s3_bucket_server_side_encryption_configuration.metastore[0]
 }
 
 moved {
   from = aws_s3_bucket_public_access_block.metastore
-  to   = module.databricks_workspace.aws_s3_bucket_public_access_block.metastore
+  to   = module.databricks_workspace.aws_s3_bucket_public_access_block.metastore[0]
 }
 
 moved {
   from = aws_iam_role.metastore_role
-  to   = module.databricks_workspace.aws_iam_role.metastore_role
+  to   = module.databricks_workspace.aws_iam_role.metastore_role[0]
 }
 
 moved {
   from = aws_iam_role_policy.metastore_policy
-  to   = module.databricks_workspace.aws_iam_role_policy.metastore_policy
+  to   = module.databricks_workspace.aws_iam_role_policy.metastore_policy[0]
 }
 
 moved {
   from = time_sleep.wait_for_uc_role
-  to   = module.databricks_workspace.time_sleep.wait_for_uc_role
+  to   = module.databricks_workspace.time_sleep.wait_for_uc_role[0]
 }
 
 moved {
   from = databricks_metastore.this
-  to   = module.databricks_workspace.databricks_metastore.this
+  to   = module.databricks_workspace.databricks_metastore.this[0]
 }
 
 moved {
   from = databricks_metastore_data_access.this
-  to   = module.databricks_workspace.databricks_metastore_data_access.this
+  to   = module.databricks_workspace.databricks_metastore_data_access.this[0]
 }
 
 moved {
   from = databricks_metastore_assignment.this
-  to   = module.databricks_workspace.databricks_metastore_assignment.this
+  to   = module.databricks_workspace.databricks_metastore_assignment.this[0]
 }
