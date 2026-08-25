@@ -43,19 +43,17 @@ targets:
   test:
     mode: production
     workspace:
-      # Replace TODO with the test workspace URL before any deploy.
-      host: TODO
-      root_path: /Workspace/Shared/.bundle/${bundle.name}/test
+      host: https://dbc-1632e213-1cc0.cloud.databricks.com
+      root_path: /Workspace/.bundle/${bundle.name}/test
     variables:
-      job_cluster_id: TODO
-      ml_cluster_id: TODO
+      job_cluster_id: "0813-174506-k095xb80"
+      ml_cluster_id: "0818-024751-8wctccnl"
 
   prod:
     mode: production
     workspace:
-      # Replace TODO with the prod workspace URL before any deploy.
-      host: TODO
-      root_path: /Workspace/Shared/.bundle/${bundle.name}/prod
+      host: https://dbc-1632e213-1cc0.cloud.databricks.com
+      root_path: /Workspace/.bundle/${bundle.name}/prod
     variables:
-      job_cluster_id: TODO
-      ml_cluster_id: TODO
+      job_cluster_id: "0813-174506-k095xb80"
+      ml_cluster_id: "0818-024751-8wctccnl"
