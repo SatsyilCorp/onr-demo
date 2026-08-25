@@ -35,9 +35,14 @@ on:
         required: false
         default: 'auto'
       target_env:
-        description: 'Override Target Environment (dev, test, prod)'
+        description: 'Target Environment'
         required: false
         default: 'dev'
+        type: choice
+        options:
+          - 'dev'
+          - 'test'
+          - 'prod'
 
 permissions:
   id-token: write
